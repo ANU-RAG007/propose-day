@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propose Day 💍</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --yes-w: 140px;
+  --yes-h: 56px;
+  --yes-font: 16px;
+
+  --no-w: 140px;
+  --no-h: 56px;
+  --no-font: 16px;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: linear-gradient(180deg, #fff0f5, #ffffff);
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.8rem;
+  color: #b1124d;
+  margin-bottom: 12px;
+}
+
+.text {
+  font-size: 1.05rem;
+  color: #333;
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+
+.question {
+  font-size: 1.3rem;
+  color: #c2185b;
+  margin-bottom: 28px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  align-items: center;
+}
+
+/* YES button */
+#yesBtn {
+  width: var(--yes-w);
+  height: var(--yes-h);
+  font-size: var(--yes-font);
+  background: #4caf50;
+  color: white;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  transition: width 0.3s ease, height 0.3s ease, font-size 0.3s ease;
+}
+
+/* NO button */
+#noBtn {
+  width: var(--no-w);
+  height: var(--no-h);
+  font-size: var(--no-font);
+  background: #f44336;
+  color: white;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  transition: width 0.3s ease, height 0.3s ease, font-size 0.3s ease;
+}
+
+/* FINAL fullscreen YES */
+.fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0;
+  font-size: 3.5rem !important;
+  z-index: 10;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Happy Propose Day 💍</h1>
+
+  <div class="text">
+    I’ve been wanting to ask you something…  
+    <br><br>
+    So here it is 😊
+  </div>
+
+  <div class="question">
+    Will you be my Valentine? 💖
+  </div>
+
+  <div class="buttons">
+    <button id="yesBtn">Yes ❤️</button>
+    <button id="noBtn">No 🙈</button>
+  </div>
+</div>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+
+  let noCount = 0;
+
+  let yesW = 140, yesH = 56, yesFont = 16;
+  let noW = 140, noH = 56, noFont = 16;
+
+  noBtn.addEventListener("click", () => {
+    noCount++;
+
+    if (noCount <= 3) {
+      // YES grows
+      yesW += 60;
+      yesH += 22;
+      yesFont += 6;
+
+      // NO shrinks
+      noW = Math.max(60, noW - 30);
+      noH = Math.max(34, noH - 10);
+      noFont = Math.max(10, noFont - 3);
+
+      root.style.setProperty("--yes-w", yesW + "px");
+      root.style.setProperty("--yes-h", yesH + "px");
+      root.style.setProperty("--yes-font", yesFont + "px");
+
+      root.style.setProperty("--no-w", noW + "px");
+      root.style.setProperty("--no-h", noH + "px");
+      root.style.setProperty("--no-font", noFont + "px");
+    }
+
+    if (noCount === 4) {
+      yesBtn.classList.add("fullscreen");
+      yesBtn.innerText = "YES ❤️";
+    }
+  });
+
+  yesBtn.addEventListener("click", () => {
+    window.location.href = "proposal-accepted.html";
+  });
+})();
+</script>
+
+</body>
+</html>
